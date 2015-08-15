@@ -51,17 +51,27 @@ No doubt the hardest one. Here, I try to use the "for" loop to carry out multipl
 Considering of the briefness and understandablity, the final form is presented as a function "final_extract". We use "for" loop for three times, one in others. Next, I would explain them words by words.
 
 final_extract <- function(database,activity){
-G <- data.frame()         ## giving initial values of data set G
-for(i in 1:30){           ## subject 1-30
-         for(j in (6*i-5):(6*i-1)){          ## the rows describing the subject i, except the (6*i)th 
-              G[j,1] <- i                    ## Subject numbers
-              G[j,2] <- activity[j%%6, 2]    ## Activity names               
-              for(m in 3:68){                ## column 3-68
+G <- data.frame()         
+## giving initial values of data set G
+
+for(i in 1:30){           
+## subject 1-30
+         
+for(j in (6*i-5):(6*i-1)){          
+## the rows describing the subject i, except the (6*i)th 
+              G[j,1] <- i                    
+## Subject numbers
+              G[j,2] <- activity[j%%6, 2]    
+## Activity names               
+              for(m in 3:68){                
+## column 3-68
                      G[j,m] <- mean(database[database[,1] == i & database[,2] == G[j,2],m])     
-                          ## calculating the average value of data with the same subject and activity names, and then delieving the values to the corresponding positions in data set G 
+                          
+## calculating the average value of data with the same subject and activity names, and then delieving the values to the corresponding positions in data set G 
               }                 
          }
-         for(j in 6*i){                      ## nearly the same, aiming at the (6*i)th rows
+         for(j in 6*i){                      
+## nearly the same, aiming at the (6*i)th rows
               G[j,1] <- i
               G[j,2] <- activity[6, 2]                   
               for(m in 3:68){
@@ -69,7 +79,9 @@ for(i in 1:30){           ## subject 1-30
               }                  
          }
 }
-colnames(G) <- colnames(database)            ## column names stay the unchanged 
+colnames(G) <- colnames(database)            
+## column names stay the unchanged 
+
 return(G)
 }
 
